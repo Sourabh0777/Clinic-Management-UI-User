@@ -4,15 +4,8 @@ import { Block, Text, theme } from "galio-framework";
 
 import Icon from "./Icon";
 import materialTheme from "../constants/Theme";
-
-const proScreens = [
-  "Woman",
-  "Man",
-  "Kids",
-  "New Collection",
-  "Sign In",
-  "Sign Up"
-];
+import { FontAwesome } from "@expo/vector-icons";
+import { MaterialIcons } from '@expo/vector-icons'; 
 
 class DrawerItem extends React.Component {
   renderIcon = () => {
@@ -91,7 +84,7 @@ class DrawerItem extends React.Component {
             color={focused ? "white" : materialTheme.COLORS.MUTED}
           />
         );
-      case "Sign In":
+      case "Logout":
         return (
           <Icon
             size={16}
@@ -109,57 +102,53 @@ class DrawerItem extends React.Component {
             color={focused ? "white" : materialTheme.COLORS.MUTED}
           />
         );
+      case "About Us":
+        return (
+          <FontAwesome
+            size={16}
+            name="group"
+            color={focused ? "white" : materialTheme.COLORS.MUTED}
+          />
+        );
+      case "Contact Us":
+
+        return (
+          <MaterialIcons
+            size={16}
+            name="email"
+            family="ionicon"
+            color={focused ? "white" : materialTheme.COLORS.MUTED}
+          />
+        );
       default:
         return null;
     }
   };
 
-  renderLabel = () => {
-    const { title } = this.props;
-
-    if (proScreens.includes(title)) {
-      return (
-        <Block middle style={styles.pro}>
-          <Text size={12} color="white">
-            PRO
-          </Text>
-        </Block>
-      );
-    }
-
-    return null;
-  };
-
   render() {
     const { focused, title, navigation } = this.props;
-    const proScreen = proScreens.includes(title);
     return (
-      <TouchableOpacity style={{ height: 55 }} onPress={() => {navigation.navigate(title)}}>
+      <TouchableOpacity
+        style={{ height: 55 }}
+        onPress={() => {
+          navigation.navigate(title);
+        }}
+      >
         <Block
           flex
           row
           style={[
             styles.defaultStyle,
-            focused ? [styles.activeStyle, styles.shadow] : null
+            focused ? [styles.activeStyle, styles.shadow] : null,
           ]}
         >
           <Block middle flex={0.1} style={{ marginRight: 28 }}>
             {this.renderIcon()}
           </Block>
           <Block row center flex={0.9}>
-            <Text
-              size={18}
-              color={
-                focused
-                  ? "white"
-                  : proScreen
-                  ? materialTheme.COLORS.MUTED
-                  : "black"
-              }
-            >
+            <Text size={18} color={focused ? "white" : "black"}>
               {title}
             </Text>
-            {this.renderLabel()}
           </Block>
         </Block>
       </TouchableOpacity>
@@ -172,20 +161,20 @@ export default DrawerItem;
 const styles = StyleSheet.create({
   defaultStyle: {
     paddingVertical: 16,
-    paddingHorizontal: 16
+    paddingHorizontal: 16,
   },
   activeStyle: {
     backgroundColor: materialTheme.COLORS.ACTIVE,
-    borderRadius: 4
+    borderRadius: 4,
   },
   shadow: {
     shadowColor: theme.COLORS.BLACK,
     shadowOffset: {
       width: 0,
-      height: 2
+      height: 2,
     },
     shadowRadius: 8,
-    shadowOpacity: 0.2
+    shadowOpacity: 0.2,
   },
   pro: {
     backgroundColor: materialTheme.COLORS.LABEL,
@@ -193,6 +182,6 @@ const styles = StyleSheet.create({
     marginLeft: 8,
     borderRadius: 2,
     height: 16,
-    width: 36
-  }
+    width: 36,
+  },
 });

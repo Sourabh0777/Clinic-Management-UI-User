@@ -78,19 +78,24 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     elevation: 1,
+    flex:0.5
   },
   image: {
     borderRadius: 3,
     marginHorizontal: theme.SIZES.BASE / 2,
-    marginTop: -16,
+    marginTop: -10,
   },
   horizontalImage: {
     height: 122,
-    width: "auto",
+    objectFit: "cover",
+    //To be commented out
+    borderWidth:2,
+    borderColor:"black"
+    //
   },
   fullImage: {
     height: 215,
-    width: width - theme.SIZES.BASE * 3,
+    width: width - theme.SIZES.BASE * 2,
   },
   shadow: {
     shadowColor: theme.COLORS.BLACK,

@@ -3,16 +3,20 @@ import { Block, Text, theme } from "galio-framework";
 import { Header, Icon } from "../components";
 import { Images, materialTheme } from "../constants/";
 
-import ComponentsScreen from "../screens/Components";
 import CustomDrawerContent from "./Menu";
-import HomeScreen from "../screens/Home";
-import OnboardingScreen from "../screens/Onboarding";
-import ProScreen from "../screens/Pro";
-import ProfileScreen from "../screens/Profile";
 import React from "react";
-import SettingsScreen from "../screens/Settings";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { createStackNavigator } from "@react-navigation/stack";
+
+//Screen
+import ComponentsScreen from "../screens/Components";
+import ProfileScreen from "../screens/Profile";
+import OnboardingScreen from "../screens/Onboarding";
+import HomeScreen from "../screens/Home";
+import ProScreen from "../screens/Pro";
+import AboutUsScreen from "../screens/AboutUs";
+import SettingsScreen from "../screens/Settings";
+//_______________________________________________
 
 const { width } = Dimensions.get("screen");
 
@@ -106,17 +110,27 @@ function HomeStack(props) {
       screenOptions={{
         mode: "card",
         headerShown: false,
-
       }}
     >
-      <Stack.Screen
-        name="Home"
-        component={HomeScreen}
-      />
+      <Stack.Screen name="HomeMain" component={HomeScreen} />
+      <Stack.Screen name="Pro" component={ProScreen} />
     </Stack.Navigator>
   );
 }
 
+function AboutUsStack(props) {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        mode: "card",
+        headerShown: false,
+      }}
+    >
+      <Stack.Screen name="About us" component={AboutUsScreen} />
+      <Stack.Screen name="Pro" component={ProScreen} />
+    </Stack.Navigator>
+  );
+}
 function AppStack(props) {
   return (
     <Drawer.Navigator
@@ -149,6 +163,34 @@ function AppStack(props) {
       }}
       initialRouteName="Home"
     >
+      <Drawer.Screen
+        name="About Us"
+        component={AboutUsStack}
+        options={{
+          drawerIcon: ({ focused }) => (
+            <Icon
+              size={16}
+              name="shop"
+              family="GalioExtra"
+              color={focused ? "white" : materialTheme.COLORS.MUTED}
+            />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="Contact Us"
+        component={AboutUsStack}
+        options={{
+          drawerIcon: ({ focused }) => (
+            <Icon
+              size={16}
+              name="shop"
+              family="GalioExtra"
+              color={focused ? "white" : materialTheme.COLORS.MUTED}
+            />
+          ),
+        }}
+      />
       <Drawer.Screen
         name="Home"
         component={HomeStack}
@@ -208,21 +250,7 @@ function AppStack(props) {
         }}
       />
       <Drawer.Screen
-        name="Sign In"
-        component={ProScreen}
-        options={{
-          drawerIcon: ({ focused }) => (
-            <Icon
-              size={16}
-              name="ios-log-in"
-              family="ionicon"
-              color={focused ? "white" : materialTheme.COLORS.MUTED}
-            />
-          ),
-        }}
-      />
-      <Drawer.Screen
-        name="Sign Up"
+        name="Logout"
         component={ProScreen}
         options={{
           drawerIcon: ({ focused }) => (
@@ -242,6 +270,7 @@ function AppStack(props) {
 export default function OnboardingStack(props) {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="App" component={AppStack} />
       <Stack.Screen
         name="Onboarding"
         component={OnboardingScreen}
@@ -249,7 +278,6 @@ export default function OnboardingStack(props) {
           headerTransparent: true,
         }}
       />
-      <Stack.Screen name="App" component={AppStack} />
     </Stack.Navigator>
   );
 }

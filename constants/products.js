@@ -1,7 +1,8 @@
+import doctor from "../assets/images/doctor.jpg"
 export default [
   {
     title: 'Hardly Anything Takes More Coura...',
-    image: 'https://source.unsplash.com/dS2hi__ZZMk/840x840',
+    image: 'https://st4.depositphotos.com/7877830/25337/v/450/depositphotos_253374286-stock-illustration-vector-illustration-male-doctor-avatar.jpg',
     price: 180,
     horizontal: true,
   },
@@ -17,7 +18,7 @@ export default [
   },
   {
     title: 'Internet of Things (IoT) is Here to Stay',
-    image: 'https://source.unsplash.com/I7BSOoPa5hM/840x840',
+    image: 'https://st4.depositphotos.com/7877830/25337/v/450/depositphotos_253374286-stock-illustration-vector-illustration-male-doctor-avatar.jpg',
     price: 188,
     horizontal: true,
   },

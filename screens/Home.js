@@ -1,13 +1,50 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, Dimensions, ScrollView } from "react-native";
 import { Button, Block, Text, Input, theme } from "galio-framework";
-
+import { Fontisto } from "@expo/vector-icons";
 import { Icon, Product } from "../components/";
 
 const { width } = Dimensions.get("screen");
 import products from "../constants/products";
+import { FontAwesome5 } from "@expo/vector-icons";
+import AppointmentCard from "../components/HomeComponent/AppointmentCard";
+
+//Dummy Data
+const Dummy_Data = {
+  message: "Success",
+  appointments: [
+    {
+      _id: "654357405458ac4ba7513fc4",
+      user: {
+        _id: "653b770e2ce070c1a41201d4",
+        firstName: "John",
+        lastName: "Doe",
+      },
+      doctor: {
+        _id: "65347711be24439e4208a294",
+        firstName: "doctor1",
+        lastName: "Doc1",
+        mobileNumber: 12345678,
+      },
+      prescription: "654357405458ac4ba7513fc3",
+      appointmentDate: "2023-11-02T14:00:00.000Z",
+      timeSlot: "654356455458ac4ba7513fa0",
+      appointmentType: "OPD",
+      status: "canceled",
+      consultationFee: 50,
+      paymentStatus: "Paid",
+      paymentMethod: "Card",
+      totalAmount: 50,
+      appointmentNotes: "This is a regular checkup appointment",
+      createdAt: "2023-11-02T08:01:04.211Z",
+      updatedAt: "2023-11-03T04:00:10.756Z",
+      __v: 0,
+    },
+  ],
+};
 
 const Home = ({ navigation }) => {
+  const [ActiveIndex, setActiveIndex] = useState(0);
   const renderSearch = () => {
     const iconCamera = (
       <Icon
@@ -28,6 +65,12 @@ const Home = ({ navigation }) => {
       />
     );
   };
+  const ChangeToAppointment = () => {
+    setActiveIndex(0);
+  };
+  const ChangeToUpcomingAppointment = () => {
+    setActiveIndex(1);
+  };
 
   const renderTabs = () => {
     return (
@@ -35,36 +78,40 @@ const Home = ({ navigation }) => {
         <Button
           shadowless
           style={[styles.tab, styles.divider]}
-          onPress={() => navigation.navigate("Pro")}
+          onPress={ChangeToAppointment}
         >
           <Block row middle>
-            <Icon name="grid" family="feather" style={{ paddingRight: 8 }} />
+            <Fontisto
+              name="doctor"
+              size={20}
+              color="black"
+              style={{ paddingRight: 8 }}
+            />
             <Text size={16} style={styles.tabTitle}>
-              Categories
+              Appointments
             </Text>
           </Block>
         </Button>
         <Button
           shadowless
           style={styles.tab}
-          onPress={() => navigation.navigate("Pro")}
+          onPress={ChangeToUpcomingAppointment}
         >
           <Block row middle>
-            <Icon
-              size={16}
-              name="camera-18"
-              family="GalioExtra"
+            <FontAwesome5
+              name="hospital-user"
+              size={20}
+              color="black"
               style={{ paddingRight: 8 }}
             />
             <Text size={16} style={styles.tabTitle}>
-              Best Deals
+              Upcoming
             </Text>
           </Block>
         </Button>
       </Block>
     );
   };
-
   const renderProducts = () => {
     return (
       <ScrollView
@@ -72,16 +119,17 @@ const Home = ({ navigation }) => {
         contentContainerStyle={styles.products}
       >
         <Block flex>
-          <Product product={products[0]} horizontal />
-          <Block flex row>
-            <Product
-              product={products[1]}
-              style={{ marginRight: theme.SIZES.BASE }}
+          {ActiveIndex ? (
+            <AppointmentCard
+              appointment={Dummy_Data.appointments[0]}
+              horizontal
             />
-            <Product product={products[2]} />
-          </Block>
-          <Product product={products[3]} horizontal />
-          <Product product={products[4]} full />
+          ) : (
+            <AppointmentCard
+              appointment={Dummy_Data.appointments[0]}
+              horizontal
+            />
+          )}
         </Block>
       </ScrollView>
     );
@@ -147,3 +195,19 @@ const styles = StyleSheet.create({
 });
 
 export default Home;
+
+{
+  /* <Block flex>
+<Product product={products[0]} horizontal />
+<Block flex row>
+  <Product
+    product={products[1]}
+    style={{ marginRight: theme.SIZES.BASE }}
+  />
+  <Product product={products[2]} />
+</Block>
+<Product product={products[3]} horizontal />
+<Product product={products[4]} full />
+</Block>
+</ScrollView> */
+}

@@ -4,5 +4,6 @@ export default {
     DARK_GRAY:"#b5b3b3",
     PRIMARY:"#29398a",
     SECONDARY:"#9fbfd1",
-    WARNING:"#de0909"
+    WARNING:"#de0909",
+    OKAY:"#35D43B"
 }
